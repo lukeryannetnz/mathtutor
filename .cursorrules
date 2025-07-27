@@ -1,0 +1,36 @@
+# Cursor Rules for Rails Math Tutor Project
+
+## Test Automation
+- Automatically run tests when test files are saved
+- Run specific test files when they are modified
+- Run the full test suite on major changes
+
+## Rails Best Practices
+- Follow Rails conventions for file naming and structure
+- Use proper Rails naming conventions for models, controllers, and views
+- Implement proper RESTful routes and actions
+- Use Rails helpers and form builders appropriately
+
+## Code Quality
+- Follow Ruby style guidelines (use RuboCop)
+- Write descriptive test names and assertions
+- Use meaningful variable and method names
+- Add appropriate comments for complex logic
+
+## Testing Guidelines
+- Write comprehensive tests for all models, controllers, and services
+- Use fixtures or factories for test data
+- Test both happy path and edge cases
+- Ensure good test coverage
+
+## File Organization
+- Keep models focused on business logic
+- Separate concerns in controllers
+- Use service objects for complex operations
+- Organize test files to mirror the app structure
+
+## Security
+- Validate and sanitize all user inputs
+- Use strong parameters in controllers
+- Implement proper authentication and authorization
+- Follow Rails security best practices 
