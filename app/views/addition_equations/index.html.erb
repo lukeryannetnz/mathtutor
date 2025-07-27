@@ -4,22 +4,6 @@
   <%= render 'equation', addition_equation: @addition_equation %>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Handle show answer button clicks using event delegation
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('show-answer-btn')) {
-      const mathProblem = e.target.closest('.math-problem');
-      const answerDiv = mathProblem.querySelector('.answer');
-      const showAnswerBtn = mathProblem.querySelector('.show-answer-btn');
-      
-      answerDiv.style.display = 'block';
-      showAnswerBtn.style.display = 'none';
-    }
-  });
-});
-</script>
-
 <style>
 .math-problem {
   text-align: center;

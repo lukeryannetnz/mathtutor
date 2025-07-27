@@ -5,17 +5,34 @@
   
   <div class="button-group">
     <button class="show-answer-btn btn btn-primary">Show Answer</button>
-    <%= link_to "New Equation", :random_addition_equations, 
+    
+  </div>
+  
+  <div class="answer" style="display: none;">
+    <p class="result">
+      <strong><%= addition_equation.result %></strong>
+    </p>
+    <%= button_to "New Equation", :random_addition_equations, 
                 class: "new-equation-btn btn btn-secondary",
                 data: { 
                   turbo_method: :get,
                   turbo_stream: true
                 } %>
   </div>
-  
-  <div class="answer" style="display: none;">
-    <p class="result">
-      <%= addition_equation.operand1 %> + <%= addition_equation.operand2 %> = <strong><%= addition_equation.result %></strong>
-    </p>
-  </div>
 </div> 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle show answer button clicks using event delegation
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('show-answer-btn')) {
+      const mathProblem = e.target.closest('.math-problem');
+      const answerDiv = mathProblem.querySelector('.answer');
+      const showAnswerBtn = mathProblem.querySelector('.show-answer-btn');
+      
+      answerDiv.style.display = 'block';
+      showAnswerBtn.style.display = 'none';
+    }
+  });
+});
+</script>
