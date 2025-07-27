@@ -2,10 +2,10 @@
 
 one:
   operand1: 1
-  operand2: 1
-  operator: MyString
+  operand2: 2
+  operator: +
 
 two:
-  operand1: 1
-  operand2: 1
-  operator: MyString
+  operand1: 2
+  operand2: 2
+  operator: +

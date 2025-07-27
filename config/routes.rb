@@ -11,5 +11,5 @@ get "/additionequations", to: "addition_equations#index"
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "addition_equations#index"
 end
