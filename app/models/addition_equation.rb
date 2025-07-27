@@ -6,4 +6,12 @@ class AdditionEquation < ApplicationRecord
   def result
     operand1 + operand2 if operator == "+"
   end
+
+  def self.random
+    new(
+      operand1: rand(1..10),
+      operand2: rand(1..10),
+      operator: "+"
+    )
+  end
 end

@@ -1,5 +1,5 @@
 class AdditionEquationsController < ApplicationController
   def index
-    @addition_equations = AdditionEquation.all
+    @addition_equation = AdditionEquation.random
   end
 end
