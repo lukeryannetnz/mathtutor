@@ -14,14 +14,6 @@ class AdditionEquationsController < ApplicationController
         )
       }
       format.html { render partial: 'equation', locals: { addition_equation: @addition_equation } }
-      format.json { 
-        render json: {
-          operand1: @addition_equation.operand1,
-          operand2: @addition_equation.operand2,
-          operator: @addition_equation.operator,
-          result: @addition_equation.result
-        }
-      }
     end
   end
 end
