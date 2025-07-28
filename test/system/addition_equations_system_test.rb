@@ -8,4 +8,4 @@ class AdditionEquationsSystemTest < ApplicationSystemTestCase
     click_button "Show Answer"
     assert_selector "form button.bg-gray-600.text-white", text: "New Equation"
   end
-end 
+end
