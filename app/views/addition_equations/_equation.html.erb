@@ -1,19 +1,18 @@
-<div class="math-problem" data-equation-id="<%= addition_equation.id %>">
-  <p class="equation">
+<div id="problem" class="text-center my-8" data-equation-id="<%= addition_equation.id %>">
+  <p class="text-4xl mb-4 font-semibold">
     <%= addition_equation.operand1 %> + <%= addition_equation.operand2 %> = ?
   </p>
   
-  <div class="button-group">
-    <button class="show-answer-btn btn btn-primary">Show Answer</button>
-    
+  <div class="mb-4 flex justify-center">
+    <button id="show-answer-btn" class="px-6 py-3 text-lg rounded bg-blue-600 text-white hover:bg-blue-800 transition disabled:opacity-60 disabled:cursor-not-allowed mx-2">Show Answer</button>
   </div>
   
-  <div class="answer" style="display: none;">
-    <p class="result">
+  <div id="answer" class="answer mt-4 p-4 bg-gray-100 rounded" style="display: none;">
+    <p class="result text-6xl m-0">
       <strong><%= addition_equation.result %></strong>
     </p>
     <%= button_to "New Equation", :random_addition_equations, 
-                class: "new-equation-btn btn btn-secondary",
+                class: "new-equation-btn px-6 py-3 text-lg rounded bg-gray-600 text-white hover:bg-gray-700 transition m-8",
                 data: { 
                   turbo_method: :get,
                   turbo_stream: true
@@ -25,10 +24,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Handle show answer button clicks using event delegation
   document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('show-answer-btn')) {
-      const mathProblem = e.target.closest('.math-problem');
-      const answerDiv = mathProblem.querySelector('.answer');
-      const showAnswerBtn = mathProblem.querySelector('.show-answer-btn');
+    if (e.target.id === ('show-answer-btn')) {
+      const mathProblem = e.target.closest('#problem');
+      const answerDiv = mathProblem.querySelector('#answer');
+      const showAnswerBtn = mathProblem.querySelector('#show-answer-btn');
       
       answerDiv.style.display = 'block';
       showAnswerBtn.style.display = 'none';
