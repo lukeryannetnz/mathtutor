@@ -13,11 +13,20 @@ export class EcrStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY, // for dev/test, change for prod
     });
 
+    // Create OIDC identity provider for GitHub Actions
+    const githubOidcProvider = new iam.OpenIdConnectProvider(this, 'GitHubOidcProvider', {
+      url: 'https://token.actions.githubusercontent.com',
+      clientIds: ['sts.amazonaws.com'],
+      thumbprints: [
+        '6938fd4d98bab03faadb97b34396831e3780aea1', // GitHub's OIDC thumbprint
+      ],
+    });
+
     // Create IAM role for GitHub Actions to push to ECR
     const githubActionsRole = new iam.Role(this, 'GitHubActionsECRRole', {
       roleName: 'GitHubActionsECRRole',
       assumedBy: new iam.FederatedPrincipal(
-        'token.actions.githubusercontent.com',
+        githubOidcProvider.openIdConnectProviderArn,
         {
           StringEquals: {
             'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
@@ -73,6 +82,13 @@ export class EcrStack extends cdk.Stack {
       value: githubActionsRole.roleArn,
       description: 'IAM Role ARN for GitHub Actions to push to ECR',
       exportName: 'GitHubActionsECRRoleArn',
+    });
+
+    // Output the OIDC provider ARN
+    new cdk.CfnOutput(this, 'GitHubOidcProviderArn', {
+      value: githubOidcProvider.openIdConnectProviderArn,
+      description: 'GitHub OIDC Provider ARN',
+      exportName: 'GitHubOidcProviderArn',
     });
   }
 } 
