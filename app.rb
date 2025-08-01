@@ -1,1 +1,1 @@
-require_relative 'lambda_handler' 
+require_relative 'lambda_handler'
