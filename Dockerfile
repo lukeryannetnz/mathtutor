@@ -18,5 +18,4 @@ RUN bundle config set without 'development test' && \
 COPY . .
 
 # Set the Lambda entrypoint using Lamby
-# (Assumes Lamby is in your Gemfile)
-CMD ["app.lambda_handler"]
+CMD ["lambda_handler.lambda_handler"]
