@@ -17,5 +17,5 @@ RUN bundle config set without 'development test' && \
 # Copy the rest of the app
 COPY . .
 
-# Set the Lambda entrypoint
-CMD ["lambda_handler.lambda_handler"]
+# Set the Lambda entrypoint for Rails with Lamby
+CMD ["app.handler"]

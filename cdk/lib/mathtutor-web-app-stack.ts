@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
 export interface MathTutorWebAppStackProps extends cdk.StackProps {
@@ -27,6 +28,8 @@ export class MathTutorWebAppStack extends cdk.Stack {
         DATABASE_URL: 'sqlite:///var/task/db/production.sqlite3', // Using SQLite for cost optimization
         RAILS_LOG_TO_STDOUT: 'true', // Ensure logs go to CloudWatch
         RAILS_SKIP_DATABASE_ENVIRONMENT_CHECK: 'true', // Skip DB environment check
+        LAMBY_ENV: 'production', // Set Lamby environment
+        LAMBY_RAILS_ENV: 'production', // Set Rails environment for Lamby
       },
       logGroup: new logs.LogGroup(this, 'RailsFunctionLogGroup', {
         retention: logs.RetentionDays.ONE_WEEK, // Reduce log retention for cost optimization
@@ -44,9 +47,9 @@ export class MathTutorWebAppStack extends cdk.Stack {
       },
       deployOptions: {
         stageName: 'prod',
-        loggingLevel: apigateway.MethodLoggingLevel.OFF, // Disable logging to avoid CloudWatch role requirement
-        dataTraceEnabled: false, // Disable data tracing to reduce costs
-        metricsEnabled: false, // Disable metrics to reduce costs
+        loggingLevel: apigateway.MethodLoggingLevel.OFF, // Disable logging to avoid account settings requirement
+        dataTraceEnabled: false, // Disable data tracing
+        metricsEnabled: true, // Keep metrics enabled
       },
     });
 
