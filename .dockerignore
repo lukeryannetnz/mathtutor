@@ -49,3 +49,6 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+# DO NOT ignore vendor/bundle - needed for Lambda deployment
+# /vendor/bundle
