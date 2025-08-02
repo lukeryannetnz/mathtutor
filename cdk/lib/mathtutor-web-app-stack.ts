@@ -30,6 +30,7 @@ export class MathTutorWebAppStack extends cdk.Stack {
         RAILS_SKIP_DATABASE_ENVIRONMENT_CHECK: 'true', // Skip DB environment check
         LAMBY_ENV: 'production', // Set Lamby environment
         LAMBY_RAILS_ENV: 'production', // Set Rails environment for Lamby
+        RAILS_MASTER_KEY: 'f5390a43466ebc115e9e7ae31237efb7', // Rails master key for credentials
       },
       logGroup: new logs.LogGroup(this, 'RailsFunctionLogGroup', {
         retention: logs.RetentionDays.ONE_WEEK, // Reduce log retention for cost optimization
