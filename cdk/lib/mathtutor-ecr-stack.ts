@@ -13,6 +13,12 @@ export class MathTutorEcrStack extends cdk.Stack {
     this.repository = new ecr.Repository(this, 'MathTutorRepo', {
       repositoryName: 'mathtutorrepo',
       removalPolicy: cdk.RemovalPolicy.DESTROY, // for dev/test, change for prod
+      lifecycleRules: [
+        {
+          maxImageCount: 1, // Keep only the last 1 image
+          description: 'Keep only the latest image to manage storage costs',
+        },
+      ],
     });
 
     // Create OIDC identity provider for GitHub Actions
