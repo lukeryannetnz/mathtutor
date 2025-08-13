@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `rails test test/controllers/addition_equations_controller_test.rb` - Run controller tests
 - `rails test test/system/addition_equations_test.rb` - Run system tests
 - `bin/rubocop -f github` - Check Ruby code style with RuboCop (GitHub format)
-- `bundle exec rubocop` - Alternative RuboCop command
+- `bundle exec rubocop` - Alternative RuboCop command  
 - `bundle exec brakeman` - Run security vulnerability scan
 
 ### AWS CDK Infrastructure (in cdk/ directory)
@@ -74,6 +74,7 @@ lambda_handler.rb                               # Lambda function handler
 
 ### Code Quality Standards
 - Follow Rails Omakase styling with RuboCop
+- **IMPORTANT**: Run `bin/rubocop -f github` after every Ruby file change
 - Security scanning with Brakeman
 - Test-driven development practices
 - Cursor rules emphasize comprehensive testing and Rails conventions
