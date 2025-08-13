@@ -87,4 +87,11 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Allow API Gateway and Lambda hosts for AWS deployment
+  if ENV["LAMBY_ENV"] == "production"
+    config.hosts.clear # Clear default hosts for Lambda deployment
+    config.host_authorization = { exclude: ->(request) { true } } # Disable host authorization for Lambda
+    config.force_ssl = false # API Gateway handles SSL termination
+  end
 end

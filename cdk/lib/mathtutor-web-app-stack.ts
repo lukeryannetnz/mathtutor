@@ -30,6 +30,7 @@ export class MathTutorWebAppStack extends cdk.Stack {
         RAILS_SKIP_DATABASE_ENVIRONMENT_CHECK: 'true', // Skip DB environment check
         LAMBY_ENV: 'production', // Set Lamby environment
         LAMBY_RAILS_ENV: 'production', // Set Rails environment for Lamby
+        _LAMBDA_SERVER_PORT: '3000', // Lamby server port
         RAILS_MASTER_KEY: 'f5390a43466ebc115e9e7ae31237efb7', // Rails master key for credentials
       },
       logGroup: new logs.LogGroup(this, 'RailsFunctionLogGroup', {
@@ -54,9 +55,10 @@ export class MathTutorWebAppStack extends cdk.Stack {
       },
     });
 
-    // Lambda integration
+    // Lambda integration with proper response handling
     const lambdaIntegration = new apigateway.LambdaIntegration(railsFunction, {
       proxy: true,
+      allowTestInvoke: true,
     });
 
     // Add proxy resource to handle all routes

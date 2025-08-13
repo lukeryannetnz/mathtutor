@@ -40,13 +40,15 @@ COPY Gemfile Gemfile.lock ./
 # Copy application code
 COPY . .
 
-# Ensure database directory exists
+# Ensure database and directories exist
 RUN mkdir -p /var/task/storage && \
     mkdir -p /var/task/tmp && \
-    mkdir -p /var/task/log
+    mkdir -p /var/task/log && \
+    mkdir -p /var/task/db
 
-# Precompile assets for production (if any)
-RUN RAILS_ENV=production bundle exec rake assets:precompile || true
+# Set up production database and precompile assets
+RUN RAILS_ENV=production bundle exec rake db:create db:migrate && \
+    RAILS_ENV=production bundle exec rake assets:precompile || true
 
 # Set the Lambda entrypoint for Rails with Lamby
 CMD ["app.handler"]
