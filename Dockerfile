@@ -1,28 +1,52 @@
-# Use the AWS Lambda Ruby 3.4 base image
-FROM public.ecr.aws/lambda/ruby:3.4
+# Multi-stage build for AWS Lambda with Ruby 3.4
+# Stage 1: Build dependencies
+FROM public.ecr.aws/lambda/ruby:3.4 AS builder
 
-# Install system dependencies and development tools
-RUN dnf install -y sqlite sqlite-devel nodejs npm gcc gcc-c++ make libyaml-devel pkgconfig && \
+# Install build dependencies
+RUN dnf install -y \
+    sqlite-devel \
+    gcc gcc-c++ make \
+    libyaml-devel \
+    pkgconfig \
+    nodejs npm && \
     npm install -g yarn && \
     dnf clean all
 
 # Set workdir
 WORKDIR /var/task
 
-# Copy Gemfiles and install gems
+# Copy and install gems
 COPY Gemfile Gemfile.lock ./
-
-# Configure bundler for Lambda deployment
-RUN bundle config set --local deployment 'true' && \
+RUN gem update bundler && \
+    bundle config set --local deployment 'true' && \
     bundle config set --local without 'development test' && \
     bundle config set --local path 'vendor/bundle' && \
     bundle install --jobs 4 --retry 3
 
-# Copy the rest of the app
+# Stage 2: Production image  
+FROM public.ecr.aws/lambda/ruby:3.4
+
+# Install only runtime dependencies
+RUN dnf install -y sqlite && dnf clean all
+
+# Set workdir
+WORKDIR /var/task
+
+# Copy gems from builder stage
+COPY --from=builder /var/task/vendor /var/task/vendor
+COPY --from=builder /var/task/.bundle /var/task/.bundle
+COPY Gemfile Gemfile.lock ./
+
+# Copy application code
 COPY . .
 
-# Ensure proper permissions
-RUN chmod +x /var/task/app.rb
+# Ensure database directory exists
+RUN mkdir -p /var/task/storage && \
+    mkdir -p /var/task/tmp && \
+    mkdir -p /var/task/log
+
+# Precompile assets for production (if any)
+RUN RAILS_ENV=production bundle exec rake assets:precompile || true
 
 # Set the Lambda entrypoint for Rails with Lamby
 CMD ["app.handler"]

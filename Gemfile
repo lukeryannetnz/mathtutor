@@ -40,6 +40,9 @@ gem "thruster", require: false
 # Deploy Rails to AWS Lambda [https://lamby.custominktech.com/]
 gem "lamby"
 
+# For environment variable loading (development only)
+gem "dotenv", groups: [:development, :test]
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

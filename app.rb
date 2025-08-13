@@ -5,7 +5,13 @@ ENV['BUNDLE_GEMFILE'] ||= File.expand_path('Gemfile', __dir__)
 ENV['BUNDLE_PATH'] ||= File.expand_path('vendor/bundle', __dir__)
 
 require_relative 'config/boot'
-require 'dotenv' ; Dotenv.load ".env.#{ENV['RAILS_ENV']}"
+# Skip dotenv in production Lambda - env vars are set via CDK
+begin
+  require 'dotenv'
+  Dotenv.load ".env.#{ENV['RAILS_ENV']}"
+rescue LoadError
+  # dotenv not available in Lambda deployment - this is expected
+end
 require 'lamby'
 require_relative 'config/application'
 require_relative 'config/environment'
