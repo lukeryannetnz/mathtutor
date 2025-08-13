@@ -52,3 +52,14 @@
 
 # DO NOT ignore vendor/bundle - needed for Lambda deployment
 # /vendor/bundle
+
+# Ignore CDK artifacts
+/cdk/cdk.out/
+/cdk/node_modules/
+
+# Ignore test artifacts  
+/test/screenshots/
+/coverage/
+
+# Ignore local development caches
+/.vscode/
