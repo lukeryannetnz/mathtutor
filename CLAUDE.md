@@ -12,7 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `rails test test/models/addition_equation_test.rb` - Run specific test file
 - `rails test test/controllers/addition_equations_controller_test.rb` - Run controller tests
 - `rails test test/system/addition_equations_test.rb` - Run system tests
-- `bundle exec rubocop` - Check Ruby code style with RuboCop
+- `bin/rubocop -f github` - Check Ruby code style with RuboCop (GitHub format)
+- `bundle exec rubocop` - Alternative RuboCop command
 - `bundle exec brakeman` - Run security vulnerability scan
 
 ### AWS CDK Infrastructure (in cdk/ directory)
