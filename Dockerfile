@@ -47,8 +47,8 @@ RUN mkdir -p /var/task/storage && \
     mkdir -p /var/task/db
 
 # Set up production database and precompile assets
-RUN RAILS_ENV=production bundle exec rake db:create db:migrate && \
-    RAILS_ENV=production bundle exec rake assets:precompile || true
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rake db:create db:migrate && \
+    SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rake assets:precompile || true
 
 # Set the Lambda entrypoint for Rails with Lamby
 CMD ["app.handler"]

@@ -17,4 +17,4 @@ const mathtutorWebAppStack = new MathTutorWebAppStack(app, 'MathTutorWebAppStack
 });
 
 // Add dependency to ensure ECR stack is deployed first
-mathtutorWebAppStack.addDependency(mathtutorWebAppStack);
+mathtutorWebAppStack.addDependency(mathTutorEcrStack);
